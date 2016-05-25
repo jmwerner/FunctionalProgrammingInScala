@@ -57,12 +57,45 @@ trait Stream[+A] {
         }
     }
 
-    def forAll(p: A => Boolean): Boolean = sys.error("todo")
+    // Exercise 4
+    def forAll(p: A => Boolean): Boolean = {
+        foldRight(true)((a, b) => p(a) && b)
+    }
 
-    def headOption: Option[A] = sys.error("todo")
+    // Exercise 5
+    def takeWhileRight(p: A => Boolean): Stream[A] = {
+        foldRight(empty[A])((h, t) => if(p(h)) cons(h, t) else empty)
+    }
 
-    // 5.7 map, filter, append, flatmap using foldRight. Part of the exercise is
-    // writing your own function signatures.
+    // Exercise 6
+    def headOption: Option[A] = {
+        foldRight(None: Option[A])((h, _) => Some(h))
+    }
+
+    // Exercise 7
+
+    def mapRight[B](f: A => B): Stream[B] = {
+        foldRight(empty[B])((h, t) => cons(f(h), t))
+    }
+
+    // Exercise 7
+
+    def filterRight(f: A => Boolean): Stream[A] = {
+        foldRight(empty[A])((h, t) => if(f(h)) cons(h, t) else t)
+    }
+
+    // Exercise 7
+
+    def appendRight[B>:A](s: => Stream[B]): Stream[B] = {
+        foldRight(s)((h, t) => cons(h, t))
+    }
+
+    // Exercise 7
+
+    def flatmapRight[B](f: A => Stream[B]): Stream[B] = {
+        foldRight(empty[B])((h, t) => f(h) appendRight t)
+    }
+
 
     def startsWith[B](s: Stream[B]): Boolean = sys.error("todo")
 }
@@ -71,20 +104,20 @@ case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
 
 object Stream {
-  def cons[A](hd: => A, tl: => Stream[A]): Stream[A] = {
-    lazy val head = hd
-    lazy val tail = tl
-    Cons(() => head, () => tail)
-}
+    def cons[A](hd: => A, tl: => Stream[A]): Stream[A] = {
+        lazy val head = hd
+        lazy val tail = tl
+        Cons(() => head, () => tail)
+    }
 
-def empty[A]: Stream[A] = Empty
+    def empty[A]: Stream[A] = Empty
 
-def apply[A](as: A*): Stream[A] =
-if (as.isEmpty) empty 
-else cons(as.head, apply(as.tail: _*))
+    def apply[A](as: A*): Stream[A] =
+    if (as.isEmpty) empty 
+    else cons(as.head, apply(as.tail: _*))
 
-val ones: Stream[Int] = Stream.cons(1, ones)
-def from(n: Int): Stream[Int] = sys.error("todo")
+    val ones: Stream[Int] = Stream.cons(1, ones)
+    def from(n: Int): Stream[Int] = sys.error("todo")
 
-def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = sys.error("todo")
+    def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = sys.error("todo")
 }
