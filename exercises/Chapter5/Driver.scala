@@ -66,7 +66,7 @@ Stream(1, 2, 3).constant(10)
 
 // Exercise 9
 
-Stream(1, 2, 3, 4, 4).from(2)
+Stream.from(10).take(5).toList
 
 // Exercise 10
 
@@ -74,9 +74,39 @@ Stream.fibs.take(10).toList
 
 // Exercise 11
 
+// This is best tested in the context of one of the next exercise's applications
 
+// Exercise 12
 
+Stream.fibsViaUnfold.take(10).toList
 
+Stream.fromViaUnfold(10).take(5).toList
 
+Stream(1, 2, 3, 4, 5).constantViaUnfold(10)
 
+Stream.onesViaUnfold
+
+// Exercise 13
+
+// Use functions defined above for testing
+
+Stream(1, 2, 3).mapViaUnfold(timesTwo).toList
+
+Stream(1, 2, 3, 4, 5).takeViaUnfold(2).toList
+
+Stream(9, 7, 5, 3, 1).takeWhileViaUnfold(isGreaterThanFive).toList
+
+// Others are best tested in the context of the next exercise's applications
+
+// Exercise 14
+
+Stream.fibs.take(10).startsWith(Stream(0,1,1))
+
+// Exercise 15
+
+Stream(1, 2).tails
+
+// Exercise 16
+
+Stream(1, 2, 3).scanRight(0)(_ + _).toList
 
