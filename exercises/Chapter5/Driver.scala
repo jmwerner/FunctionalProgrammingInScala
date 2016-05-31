@@ -60,3 +60,23 @@ Stream(1, 2, 3).appendRight(Stream(10)).toList
 
 Stream(1, 2, 3).flatmapRight(timesTwoStream).toList
 
+// Exercise 8
+
+Stream(1, 2, 3).constant(10)
+
+// Exercise 9
+
+Stream(1, 2, 3, 4, 4).from(2)
+
+// Exercise 10
+
+Stream.fibs.take(10).toList
+
+// Exercise 11
+
+
+
+
+
+
+
