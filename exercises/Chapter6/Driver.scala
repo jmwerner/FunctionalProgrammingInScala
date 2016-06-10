@@ -1,4 +1,9 @@
+:paste State.scala
+
 // Exercise 1
+val simpleRNG = RNG.Simple(1000)
+val (n1, rng2) = RNG.nonNegativeInt(simpleRNG)
+RNG.nonNegativeInt(rng2)
 
 // Exercise 2
 
