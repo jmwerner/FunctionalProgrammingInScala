@@ -35,11 +35,22 @@ object RNG {
         (if (i < 0) -(i + 1) else i, r)
     }
 
-  def double(rng: RNG): (Double, RNG) = ???
+    def double(rng: RNG): (Double, RNG) = {
+        val (i, r) = nonNegativeInt(rng)
+        (i / (Int.MaxValue.toDouble + 1), r)
+    }
 
-  def intDouble(rng: RNG): ((Int,Double), RNG) = ???
+    def intDouble(rng: RNG): ((Int,Double), RNG) = {
+        val (i, rng1) = rng.nextInt
+        val (d, rng2) = double(rng1)
+        ((i, d), rng2)
+    }
 
-  def doubleInt(rng: RNG): ((Double,Int), RNG) = ???
+    def doubleInt(rng: RNG): ((Double,Int), RNG) = {
+        val (d, rng1) = double(rng)
+        val (i, rng2) = rng1.nextInt
+        ((d, i), rng2)
+    }
 
   def double3(rng: RNG): ((Double,Double,Double), RNG) = ???
 
