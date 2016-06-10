@@ -11,7 +11,9 @@ RNG.nonNegativeInt(rng2)
 RNG.double(rng2)
 
 // Exercise 3
-
+RNG.intDouble(simpleRNG)
+RNG.doubleInt(simpleRNG)
+RNG.double3(simpleRNG)
 
 // Exercise 4
 
