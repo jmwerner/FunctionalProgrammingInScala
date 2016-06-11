@@ -5,6 +5,7 @@ import Stream._
 trait Stream[+A] {
 
     // Exercise 1
+
     def toList: List[A] = {
         @annotation.tailrec
         def go(s: Stream[A], acc: List[A]): List[A] = s match {
@@ -32,6 +33,7 @@ trait Stream[+A] {
     }
 
     // Exercise 2
+
     def take(n: Int): Stream[A] = {
         this match {
             case Cons(h, t) if n > 1 => cons(h(), t().take(n - 1))
@@ -41,6 +43,7 @@ trait Stream[+A] {
     }
 
     // Exercise 2
+
     @annotation.tailrec
     final def drop(n: Int): Stream[A] = {
         this match {
@@ -50,6 +53,7 @@ trait Stream[+A] {
     }
 
     // Exercise 3
+
     def takeWhile(p: A => Boolean): Stream[A] = {
         this match { 
             case Cons(h,t) if p(h()) => cons(h(), t() takeWhile p)
@@ -58,16 +62,19 @@ trait Stream[+A] {
     }
 
     // Exercise 4
+    
     def forAll(p: A => Boolean): Boolean = {
         foldRight(true)((a, b) => p(a) && b)
     }
 
     // Exercise 5
+    
     def takeWhileRight(p: A => Boolean): Stream[A] = {
         foldRight(empty[A])((h, t) => if(p(h)) cons(h, t) else empty)
     }
 
     // Exercise 6
+    
     def headOption: Option[A] = {
         foldRight(None: Option[A])((h, _) => Some(h))
     }
